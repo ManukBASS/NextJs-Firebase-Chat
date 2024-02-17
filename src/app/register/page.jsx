@@ -31,18 +31,17 @@ function page() {
   const [avatarUrl, setAvatarUrl] = useState("");
   const router = useRouter();
 
-  const generateRandomAvatar = () => {
-    const generator = new AvatarGenerator();
-    return generator.generateRandomAvatar();
-  };
+  useEffect(() => {
+    const randomNumber = Math.floor(Math.random() * 1000);
+    const imageUrl = `https://picsum.photos/200/200?random=${randomNumber}`;
+    setAvatarUrl(imageUrl);
+  }, []);
 
   const handleRefreshAvatar = () => {
-    setAvatarUrl(generateRandomAvatar());
+    const randomNumber = Math.floor(Math.random() * 1000);
+    const imageUrl = `https://picsum.photos/200/200?random=${randomNumber}`;
+    setAvatarUrl(imageUrl);
   };
-
-  useEffect(() => {
-    setAvatarUrl(generateRandomAvatar());
-  }, []);
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -96,7 +95,6 @@ function page() {
     }
     setLoading(false);
   };
-  console.log(avatarUrl);
 
   return (
     <Box
@@ -105,7 +103,7 @@ function page() {
         height: "100vh",
         justifyContent: "center",
         alignItems: "center",
-        p: "2.5rem",
+        p: "1rem",
         m: ".5rem",
       }}
     >
@@ -113,21 +111,31 @@ function page() {
         onSubmit={handleSubmit}
         className="space-y-4 w-full max-w-2xl shadow-lg p-10"
       >
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography fontWeight="bold">Register a new account !</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography sx={{ paddingTop: { xs: "2rem" } }} fontWeight="bold">
+            Register a new account
+          </Typography>
         </Box>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            flexDirection: { xs: "column", sm: "row" },
             p: ".5rem",
           }}
         >
           <Avatar src={avatarUrl} alt="Avatar" sx={{ width: 80, height: 80 }} />
           <Button
             variant="outlined"
-            sx={{ height: "2rem" }}
+            sx={{ height: "2rem", mt: { xs: "1rem", sm: 0 } }}
+            pequeñas
             size="small"
             onClick={handleRefreshAvatar}
           >
@@ -206,18 +214,25 @@ function page() {
           )}
         </Box>
 
-        <Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexDirection: { xs: "column", sm: "row" },
+          }}
+        >
           <Button variant="outlined" type="submit">
             {loading ? <CircularProgress /> : "Sign Up"}
           </Button>
-        </Box>
 
-        <Typography>
-          Already have an account?{" "}
-          <Link href="/login" style={{ color: "blue" }}>
-            Login
-          </Link>
-        </Typography>
+          <Typography sx={{ mt: { xs: ".5rem" } }}>
+            Already have an account?{" "}
+            <Link href="/login" style={{ color: "blue" }}>
+              Login
+            </Link>
+          </Typography>
+        </Box>
       </form>
     </Box>
   );
