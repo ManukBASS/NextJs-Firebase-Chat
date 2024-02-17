@@ -2,7 +2,10 @@
 // React
 import React, { useEffect, useState } from "react";
 // Material UI
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, IconButton, Typography } from "@mui/material";
+import Drawer from "@mui/material/Drawer";
+import MenuIcon from "@mui/icons-material/Menu";
+import { styled } from "@mui/system";
 // Next
 import { useRouter } from "next/navigation";
 // Firebase
@@ -18,6 +21,17 @@ function page() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [selectedChatroom, setSelectedChatroom] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const ResponsiveBox = styled("div")(({ theme }) => ({
+    [theme.breakpoints.up("lg")]: {
+      flexShrink: 0,
+      width: "25%",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  }));
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -56,9 +70,31 @@ function page() {
 
   return (
     <Box sx={{ display: "flex", height: "100vh" }}>
-      <Box sx={{ flexShrink: 0, width: "25%" }}>
+      <IconButton
+        onClick={() => setIsDrawerOpen(true)}
+        sx={{
+          display: { md: "none" },
+          position: "absolute",
+          top: 0,
+          left: 0,
+          margin: "8px",
+        }}
+      >
+        <MenuIcon />
+      </IconButton>
+
+      <Drawer
+        anchor="left"
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        sx={{ display: { md: "block", lg: "none" } }}
+      >
         <User userData={user} setSelectedChatroom={setSelectedChatroom} />
-      </Box>
+      </Drawer>
+
+      <ResponsiveBox>
+        <User userData={user} setSelectedChatroom={setSelectedChatroom} />
+      </ResponsiveBox>
 
       <Box sx={{ flexGrow: 1, width: "75%" }}>
         {selectedChatroom ? (

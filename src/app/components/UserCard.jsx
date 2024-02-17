@@ -17,7 +17,7 @@ function UsersCard({ avatarUrl, name, latestMessage, type }) {
         },
       }}
     >
-      <Box sx={{ flexShrink: 0, marginRight: 4, position: "relative" }}>
+      <Box sx={{ flexShrink: 0, marginRight: 3, position: "relative" }}>
         <Box
           sx={{
             borderRadius: "full",
@@ -37,7 +37,7 @@ function UsersCard({ avatarUrl, name, latestMessage, type }) {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="body1" sx={{ fontWeight: "semibold" }}>
+            <Typography variant="body1" sx={{ fontWeight: "semibold", mr: 3 }}>
               {name}
             </Typography>
           </Box>
@@ -64,7 +64,7 @@ function UsersCard({ avatarUrl, name, latestMessage, type }) {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="h6" sx={{ fontWeight: "semibold" }}>
+            <Typography variant="body1" sx={{ fontWeight: "semibold", mr: 3 }}>
               {name}
             </Typography>
           </Box>

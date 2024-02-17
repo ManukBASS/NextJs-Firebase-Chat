@@ -2,7 +2,7 @@
 // React
 import { useEffect, useState } from "react";
 // Material UI
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 // Next
 import { useRouter } from "next/navigation";
 // Firebase
@@ -35,7 +35,7 @@ function Users({ userData, setSelectedChatroom }) {
     setActiveTab(tab);
   };
 
-  //get all users
+  // Fetch all users
   useEffect(() => {
     setLoading2(true);
     const tasksQuery = query(collection(firestore, "users"));
@@ -48,7 +48,7 @@ function Users({ userData, setSelectedChatroom }) {
     return () => unsubscribe();
   }, []);
 
-  //get chatrooms
+  // Fetch chatrooms
   useEffect(() => {
     setLoading(true);
     if (!userData?.id) return;
@@ -81,7 +81,7 @@ function Users({ userData, setSelectedChatroom }) {
       const existingChatroomsSnapshot = await getDocs(existingChatroomsQuery);
 
       if (existingChatroomsSnapshot.docs.length > 0) {
-        // Chatroom already exists, handle it accordingly (e.g., show a message)
+        // Chatroom already exists, show a message
         console.log("Chatroom already exists for these users.");
         toast.error("Chatroom already exists for these users.");
         return;
@@ -111,7 +111,7 @@ function Users({ userData, setSelectedChatroom }) {
     }
   };
 
-  //open chatroom
+  // Open chatroom
   const openChat = async (chatroom) => {
     const data = {
       id: chatroom.id,
@@ -139,15 +139,15 @@ function Users({ userData, setSelectedChatroom }) {
           display: "flex",
           flexDirection: { xs: "column", lg: "row" },
           justifyContent: "space-between",
-          padding: 4,
-          gap: { xs: 4, lg: 1 },
+          padding: 2,
+          gap: { xs: 1, lg: 1 },
         }}
       >
         <Button
           variant="outlined"
           sx={{
             width: "100%",
-            mb: { xs: 4, lg: 1 },
+            mb: { xs: 1, lg: 1 },
             color: (theme) =>
               activeTab === "users" ? theme.palette.primary.main : undefined,
           }}
@@ -159,7 +159,7 @@ function Users({ userData, setSelectedChatroom }) {
           variant="outlined"
           sx={{
             width: "100%",
-            mb: { xs: 4, lg: 1 },
+            mb: { xs: 1, lg: 1 },
             color: (theme) =>
               activeTab === "chatrooms"
                 ? theme.palette.primary.main
@@ -171,7 +171,7 @@ function Users({ userData, setSelectedChatroom }) {
         </Button>
         <Button
           variant="outlined"
-          sx={{ width: "100%", mb: { xs: 4, lg: 1 } }}
+          sx={{ width: "100%", mb: { xs: 1, lg: 1 } }}
           onClick={logoutClick}
         >
           Logout
@@ -179,23 +179,26 @@ function Users({ userData, setSelectedChatroom }) {
       </Box>
 
       <Box>
-        {activeTab === "chatrooms" && (
+        {(loading || loading2) && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              px: "4.82rem",
+              mt: "1rem",
+            }}
+          >
+            <CircularProgress />
+            <Typography>Loading...</Typography>
+          </Box>
+        )}
+        {activeTab === "chatrooms" && !loading && (
           <>
-            <Typography variant="h6" sx={{ px: 4, mb: 2 }}>
+            <Typography variant="h6" sx={{ px: 2, mb: 2 }}>
               Chatrooms
             </Typography>
-            {loading && (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
-                <span className="loading loading-spinner text-primary"></span>
-              </Box>
-            )}
             {userChatrooms.map((chatroom) => (
               <Box
                 key={chatroom.id}
@@ -222,23 +225,11 @@ function Users({ userData, setSelectedChatroom }) {
           </>
         )}
 
-        {activeTab === "users" && (
+        {activeTab === "users" && !loading2 && (
           <>
-            <Typography variant="h6" sx={{ mt: 4, px: 4, mb: 2 }}>
+            <Typography variant="h6" sx={{ px: 2, mb: 2 }}>
               Users
             </Typography>
-            {loading2 && (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
-                <span className="loading loading-spinner text-primary"></span>
-              </Box>
-            )}
             {users.map((user) => (
               <Box
                 key={user.id}

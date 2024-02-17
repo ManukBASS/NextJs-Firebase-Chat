@@ -38,11 +38,11 @@ const MessageCard = ({ message, me, other }) => {
       <Box
         sx={{
           color: "white",
-          p: "1rem",
-          borderRadius: "1rem",
+          p: ".5rem",
+          borderRadius: ".5rem",
           backgroundColor: isMessageFromMe ? "#3b82f6" : "#19d39e",
           alignSelf: "flex-start",
-          maxWidth: "60%",
+          maxWidth: "70%",
         }}
       >
         <Typography variant="body1">{message.content}</Typography>
