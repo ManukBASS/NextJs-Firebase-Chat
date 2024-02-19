@@ -1,6 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-# Next.js Firebase Chat
+# Next.js Firebase Chat 📱
 
 This repository contains a chat project developed with Next.js and Firebase. This application provides a real-time chat platform that leverages Firebase capabilities for the backend and Next.js and React.js for the frontend.
 
