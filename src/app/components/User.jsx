@@ -35,7 +35,7 @@ function Users({ userData, setSelectedChatroom }) {
     setActiveTab(tab);
   };
 
-  // Fetch all users
+  // Fetch all users, using onSnapchot for real-time changes
   useEffect(() => {
     setLoading2(true);
     const tasksQuery = query(collection(firestore, "users"));
@@ -48,7 +48,7 @@ function Users({ userData, setSelectedChatroom }) {
     return () => unsubscribe();
   }, []);
 
-  // Fetch chatrooms
+  // Fetch chatrooms, using onSnapchot for real-time changes
   useEffect(() => {
     setLoading(true);
     if (!userData?.id) return;
@@ -122,6 +122,7 @@ function Users({ userData, setSelectedChatroom }) {
     setSelectedChatroom(data);
   };
 
+  // Handle logout
   const logoutClick = () => {
     signOut(auth)
       .then(() => {

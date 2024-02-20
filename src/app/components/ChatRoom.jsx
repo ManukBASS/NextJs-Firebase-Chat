@@ -31,6 +31,7 @@ function ChatRoom({ selectedChatroom }) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
+    // Scroll when a new message appears
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;

@@ -3,11 +3,13 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import { Box, IconButton, TextField } from "@mui/material";
 
 function MessageInput({ sendMessage, message, setMessage }) {
+  // Send message on key press
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       sendMessage();
     }
   };
+
   return (
     <Box
       sx={{

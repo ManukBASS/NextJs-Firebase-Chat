@@ -5,6 +5,7 @@ import moment from "moment";
 const MessageCard = ({ message, me, other }) => {
   const isMessageFromMe = message.sender === me.id;
 
+  // Time formater
   const formatTimeAgo = (timestamp) => {
     const date = timestamp?.toDate();
     const momentDate = moment(date);
@@ -40,7 +41,7 @@ const MessageCard = ({ message, me, other }) => {
           color: "white",
           p: ".5rem",
           borderRadius: ".5rem",
-          backgroundColor: isMessageFromMe ? "#3b82f6" : "#19d39e",
+          backgroundColor: isMessageFromMe ? "#940000" : "#800080",
           alignSelf: "flex-start",
           maxWidth: "70%",
         }}

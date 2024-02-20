@@ -26,6 +26,7 @@ function page() {
   const router = useRouter();
 
   const validateForm = () => {
+    // Form validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const newErrors = {};
     if (!email.trim() || !emailRegex.test(email)) {
@@ -39,6 +40,7 @@ function page() {
   };
 
   const handleSubmit = async (evt) => {
+    // Form submit validation
     evt.preventDefault();
     setLoading(true);
     try {

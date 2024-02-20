@@ -75,7 +75,7 @@ function page() {
         );
         const user = userCredential.user;
 
-        // Now you can use the user's UID as the document ID
+        // Using the user's UID as the document ID
         const docRef = doc(firestore, "users", user.uid);
         await setDoc(docRef, {
           name,
